@@ -6,12 +6,39 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Firebase Admin Initialization with YOUR CREDENTIALS
+// 🔑 New Service Account JSON
 const serviceAccount = {
   "type": "service_account",
   "project_id": "iiiii-5e9bf",
-  "private_key_id": "a9fcb967f38d2291521b7ca4a2e26134ea768193",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCxTo5AhsHngx65\nGI4mFL0P9x1cxEnezmoRj5CV75/MaYx+f7hsmQVd9JIbkc1RdPTJgPgmOqvzCELE\n0NZfBNpf44W3nFfBD86z2HmnQ8iR+NHJK7e71+8ATqmXmV4aGbGQzJJ6hW8s0BKd\njeeJ/x0QjFxkNCxmkyI7grwXxfVqXDsQpjEKwQ6qdWSZ87jXxAMUp3VK8+IDlMgW\nn88Fqb/2AnzmPgyyoIxytApiigGndca5ZRK4DOrc8X4vm6huKWTe5mDyoZ1nY7hP\nQrK2kQQAz7DgerasdcYdwRLifcL4/xUOffuUnsJ5gUWIeJg4tw3JJklXZ4uwuxRg\nP15OVn/XAgMBAAECggEAKASCX7bqeb2iyATuRFMG7t0HwAG/aG2vC+Kar/SC3Qhv\ngLeD4OLSjsed2GIadImQnBAjMcGpQHN7Wl+GGrEGNoEsE2pSdg0Cyp2Pq3xFfwip\nFJ3s3JUaaLfYWBJx5jMpW/SIFOYb1wHpSa0W9pLhNPRw/960rLwFjGfv2u+/ea8R\n4GRmF90QKwGKBzHCjZQN1UZCISmTOuH4blCGkm8IeuxmUKjzvNWTFmDB1NNWt4+q\n+/sJWrCnfx3QoF05eYGCRmBxyUi7luCBXSytWywO+gijHzoS5RtF9FjWxwqYsRwz\nPpx+vR9QFQEWiG06ttproV87nGQDYE1IvlKxukdMPQKBgQDmZUCWfbZLXqA9kzCo\nqs3PhBtEg/gHtPKAAjhTTyuz4ZtZWi/C2DKD3oSBknmnLxuon1sEJlTF0CRbZxpF\nX51Y+mjlrMU1u1Kh0k5WExl8P1j8lLGf7YdZ/iWwO4Gznj5BQDZA8FVFjH3aJ0St\nwr21BogVrVCZIVNAz6nma4WgVQKBgQDFAu6gF+dpjGBanYDFre7zg3Y2RhE6o9V/\nNPxhHvlulafJMZGm9hKeN9HUVNnIbvKRTgVuGesg7Rs7Bw5tKQcEpsTNRUfkzTMn\nKRdzprACiBsEOSRoi5zKrfH9Fjqjj7uIq2/DZ+R/KWDIXwjsGE4OqbKq/K14+uOv\nVImYO9ObewKBgQC94DZhkEs7REn1VSfl6ZZibnJ2ffhciaDNJIc9CWNwBP+dnPj9\nsGW5ThqQGqJNyUIXLvW4rspwmEBOX+NDxzALE5x9pGyHAtFv8b2DrIv1XNO+neDh\nd8VzwkNXQUN8P275Ia1UyXzNK6LQtkoglfz4guCGVOa2vMM7B6ny7ywaXQKBgQCl\nZvbMtgT1WoOy0DVCweqxy5c9rcndP5uJNwUEzSqBK2g4xEMSt9mduCOUbsCBRJSm\nZaitbVk4xZhtEFmOUDmyMAlehWH8uELQB/HGiRWQqpB0FT16AGzcxPk7kKQemhfK\ngJROrDTsheLZluA4x5cRPGvink1OGuV5WDJE+0WHbQKBgD9fwe9r15lDGsW/kyH7\numic2vcUQD0LtpmQJ3ygzeYqETFPhOTw5f8WtKBM/iIsgRSfRoEQ0scndscFXdOE\n44645mcaYu8DF1rmPMgC63OLAscxc77A47ZJz686ye5K/BfdRDG/kM4dQ32yclkM\nxvKYZimLIpbAnAaW2NYA+yOk\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "5aa29f889ac83de1035e9bee2f44e8d0df891e53",
+  "private_key": `-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCNxlCp7WOcYk2S
+tZlMs7cSXh9dF7K5v5YjMimCc4aChWAHtZTKfNLqNqWIqo7r6loDkK0IPQLqraCt
+3uXhbugagfg4iSKAlf7cwjXkeCw38oN8WDnIFm4S1yZ+qHSPxb9XIKSHYIKECN68
+5L0GRGkm6/EtOoqSEH/LtawQ0+FD6xMNdxE8TmkD2a1OAerElHQ2Kdr4vp1B3jvc
+noGHY3QbRiPUZGyxKLTaz8xL2YLwPBWFzsCQBJ4ePC3kDyxs4xoS+lePnVV2IU8h
+qNrMswvEFcJvCLwpH8BqExQB3dTQ1gJqsLF7p+2MuU6ZVAOB1NWpepu5r1whmC+V
+KF/Zip2xAgMBAAECggEAAtH4Fs6XFaxK7hPYtH2QCGMrl+F5zQIc+B7uU8mn2lQm
+4IsMe6lXVLtjjZVppGhpWVAjxlnYWKy9g9fplhNrteNHTxtDPsWSZ/fLtKYYqGrq
+51VQnkSmnzn9FQtAI6quWgsB2tjg9RlsEjExUBJE+TY7pPJY1qZSCc5XruStbXlp
+trcfvegIi0dlQS26F6i1WnaEYRSNX9KbGrTmmCNYYPwkj05UmSW5gvfviDJjB/C6
+JJf049sCungMXma6I0NHGZPGF7WLpFEwkXiQZoRNWusjU8kN60rYYWRi+eiyW3+g
+tDjIbSPVqlWqaoa7CKNWb4FfPBIsQsd5UCEjkhUyQQKBgQDEZVvzuuxn9E7nItfg
+gXQt34LO9OhCyh/Oz60Xth6y6mey4u8DYZgPUZ696bpe20YUwVoD14IFwUKtJZIn
+IqxnEw/BueXf/wh7VhIwULPoQpFcLVDOzf9K8iZtyPyEzNPYW5/qxmMSE3aNISZx
+xTllHtrFJ06m7SkDysKkrMX+CQKBgQC4zUBmrgC2go+UHNU4h5EvQ6FRWNAtOq1K
+bZ8ClcfT6XwEyVr8XOuRLHukxq25yCmhuijovo03IbcH9EZS/RcDNlXeIoCrGdrM
+EpUvipYbNw/WudJMdiQfiwSZdzGCgnkfz83y6AML4NAwxelRtqSnjkMjMx/GfqYB
+YyY7XEUMaQKBgBMHdydgfzN7WoHOwHgCUw120KfY1wBRsU9KlAzuGn9fcvjEQEBl
+nmQtlmH0WZiDSoEMUvp4USLZnOpF76lXFLlQAYDV0E4p2dqJdm20BBqHCKqTwXao
+Qwox+EM+7Ci55/TYu9/1pPfFZwE5qw3u/CauHKhprJdD92tkpANssipxAoGBAI+Z
+/wdLAwbPoZ5oYU+SGMFvfjVmHC5pQCtrz3oExcjn0BUwGmGsGukudc3vDSQmZCNm
+M0/Ycod6zW2C5fqq7Gz0lfkNOoq6hoi5j+/ncwkm2knzD3WXAC76qdJPCsvtcw3D
+PrgYjfV29pBP2iRDFuOU6pq5qWFnHLxLPXQ3GPixAoGBALcQALxXoTUPaqR0jylB
+HIwgaEIBW+5RiuxSz5xbRbIU06dfOqj1/XT32F9w/Arwda2ELbb5+6Z+u+4IK3bn
+vVZiiZXeGkbdi9gai7yYnHDoVcA1oortvryBlJTujSSHZbThkAYD734ACmxr5Owb
+JUeETQiQgjYK5y4P3tARwgfI
+-----END PRIVATE KEY-----`,
   "client_email": "firebase-adminsdk-fbsvc@iiiii-5e9bf.iam.gserviceaccount.com",
   "client_id": "109536432770303608065",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -19,6 +46,9 @@ const serviceAccount = {
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40iiiii-5e9bf.iam.gserviceaccount.com"
 };
+
+// 🔹 Fix newlines for Firebase Admin
+serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -39,8 +69,6 @@ app.post('/send-notification', async (req, res) => {
   try {
     const { token, title, body, data } = req.body;
 
-    console.log('📨 Received notification request:', { token, title, body });
-
     if (!token || !title || !body) {
       return res.status(400).json({
         success: false,
@@ -49,23 +77,13 @@ app.post('/send-notification', async (req, res) => {
     }
 
     const message = {
-      notification: {
-        title: title,
-        body: body
-      },
+      notification: { title, body },
       data: data || {},
-      token: token,
-      webpush: {
-        fcm_options: {
-          link: 'https://reviewa2z.com/chat.html'
-        }
-      }
+      token,
+      webpush: { fcm_options: { link: 'https://reviewa2z.com/chat.html' } }
     };
 
-    console.log('🚀 Sending FCM message...');
     const response = await admin.messaging().send(message);
-    
-    console.log('✅ Notification sent successfully:', response);
 
     res.json({
       success: true,
@@ -75,12 +93,7 @@ app.post('/send-notification', async (req, res) => {
 
   } catch (error) {
     console.error('❌ Error sending notification:', error);
-    
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      code: error.code
-    });
+    res.status(500).json({ success: false, error: error.message, code: error.code });
   }
 });
 
@@ -88,47 +101,25 @@ app.post('/send-notification', async (req, res) => {
 app.post('/test', async (req, res) => {
   try {
     const { token } = req.body;
-    
-    if (!token) {
-      return res.status(400).json({
-        success: false,
-        error: 'Token is required'
-      });
-    }
+    if (!token) return res.status(400).json({ success: false, error: 'Token is required' });
 
     const message = {
-      notification: {
-        title: '🎉 Server Test Successful!',
-        body: 'Your notification server is working perfectly!'
-      },
-      data: {
-        type: 'server_test',
-        message: 'Server is configured correctly!',
-        timestamp: new Date().toISOString()
-      },
-      token: token
+      notification: { title: '🎉 Server Test Successful!', body: 'Your notification server is working!' },
+      data: { type: 'server_test', message: 'Server is configured correctly!', timestamp: new Date().toISOString() },
+      token
     };
 
     const response = await admin.messaging().send(message);
 
-    res.json({
-      success: true,
-      message: 'Test notification sent successfully!',
-      messageId: response
-    });
+    res.json({ success: true, message: 'Test notification sent successfully!', messageId: response });
 
   } catch (error) {
     console.error('Test error:', error);
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Review Share Notification Server running on port ${PORT}`);
-  console.log(`📍 Health: http://localhost:${PORT}`);
-  console.log(`✅ Ready to send notifications!`);
 });
